@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGO_URI =
   process.env.MONGO_URI || "mongodb://127.0.0.1:27017/hackverse";
+let dbConnectPromise = null;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
@@ -23,6 +24,28 @@ const messageSchema = new mongoose.Schema(
 );
 
 const Message = mongoose.model("Message", messageSchema);
+
+async function ensureDbConnection() {
+  if (mongoose.connection.readyState === 1) {
+    return;
+  }
+
+  if (dbConnectPromise) {
+    await dbConnectPromise;
+    return;
+  }
+
+  dbConnectPromise = mongoose
+    .connect(MONGO_URI)
+    .then(() => {
+      console.log("MongoDB connected");
+    })
+    .finally(() => {
+      dbConnectPromise = null;
+    });
+
+  await dbConnectPromise;
+}
 
 app.get("/api/health", (_req, res) => {
   const state = mongoose.connection.readyState;
@@ -42,6 +65,7 @@ app.get("/api/health", (_req, res) => {
 
 app.get("/api/messages", async (req, res) => {
   try {
+    await ensureDbConnection();
     const limit = Math.min(Number(req.query.limit) || 5, 20);
     const items = await Message.find()
       .sort({ createdAt: -1 })
@@ -55,6 +79,7 @@ app.get("/api/messages", async (req, res) => {
 
 app.post("/api/messages", async (req, res) => {
   try {
+    await ensureDbConnection();
     const { name, email, message } = req.body || {};
     if (!name || !email || !message) {
       return res
@@ -77,8 +102,7 @@ app.get("*", (_req, res) => {
 
 async function start() {
   try {
-    await mongoose.connect(MONGO_URI);
-    console.log("MongoDB connected");
+    await ensureDbConnection();
     app.listen(PORT, () => {
       console.log(`Server running at http://localhost:${PORT}`);
     });
@@ -88,4 +112,8 @@ async function start() {
   }
 }
 
-start();
+if (require.main === module) {
+  start();
+}
+
+module.exports = app;
