@@ -96,7 +96,13 @@ app.post("/api/messages", async (req, res) => {
   }
 });
 
-app.get("*", (_req, res) => {
+app.get("*", (req, res) => {
+  // Do not return index.html for file-like paths (e.g. /Images/foo.png).
+  // This prevents browsers from receiving HTML with a 200 for missing assets.
+  if (path.extname(req.path)) {
+    return res.status(404).end();
+  }
+
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
