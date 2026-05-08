@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const fs = require("fs");
 
 dotenv.config();
 
@@ -25,6 +26,21 @@ const messageSchema = new mongoose.Schema(
 
 const Message = mongoose.model("Message", messageSchema);
 
+const certificateSchema = new mongoose.Schema(
+  {
+    icon: { type: String, required: true },
+    name: { type: String, required: true },
+    issuer: { type: String, required: true },
+    date: { type: String, required: true },
+    description: { type: String, required: true },
+    skills: { type: String },
+    src: { type: String, required: true },
+  },
+  { timestamps: true },
+);
+
+const Certificate = mongoose.model("Certificate", certificateSchema);
+
 async function ensureDbConnection() {
   if (mongoose.connection.readyState === 1) {
     return;
@@ -39,12 +55,79 @@ async function ensureDbConnection() {
     .connect(MONGO_URI)
     .then(() => {
       console.log("MongoDB connected");
+      seedCertificates();
     })
     .finally(() => {
       dbConnectPromise = null;
     });
 
   await dbConnectPromise;
+}
+
+async function seedCertificates() {
+  try {
+    const certCount = await Certificate.countDocuments();
+    if (certCount === 0) {
+      const certsData = [
+        {
+          icon: "&#127881;",
+          name: "45 Days of Code 2024",
+          issuer: "Amity Coding Club &mdash; Amity University",
+          date: "2024 &bull; Amity University, Gwalior",
+          description:
+            "Successfully completed the 45 Days of Code 2024 challenge organized by the Amity Coding Club, demonstrating consistent dedication, discipline, and a passion for learning and innovation in programming over 45 continuous days.",
+          skills:
+            "Problem Solving,Consistent Coding,Programming Logic,Algorithms,Dedication,Innovation",
+          src: "/Images/45-days-of-code-certificate.png",
+        },
+        {
+          icon: "&#127919;",
+          name: "Google AI Study Jam",
+          issuer: "Google Developer Groups on Campus &mdash; Amity University",
+          date: "2025 &bull; Study Jam",
+          description:
+            "Completed Google AI Study Jam, focused on practical AI learning, hands-on exploration, and modern developer workflows.",
+          skills: "Generative AI,Prompting,AI Tools,Hands-on Learning",
+          src: "/Images/agentic.png",
+        },
+        {
+          icon: "&#128293;",
+          name: "Build with AI Certificate of Participation",
+          issuer: "Google Developer Groups on Campus &mdash; MITS DU",
+          date: "February 10, 2025 &bull; MITS, Gwalior",
+          description:
+            "Certificate of participation awarded for taking part in the Build with AI event conducted by Google Developer Groups on Campus at MITS DU.",
+          skills:
+            "AI Fundamentals,Prompt Engineering,Developer Tools,Innovation,Community Participation",
+          src: "/Images/build-with-ai-certificate.png",
+        },
+        {
+          icon: "&#127891;",
+          name: "Internal SIH 2025",
+          issuer: "Hack2Skill",
+          date: "2025 &bull; Internal SIH",
+          description:
+            "Recognized participation in Internal SIH 2025 with active contribution in problem solving and project development.",
+          skills: "Teamwork,Ideation,Problem Solving,Presentation",
+          src: "/Images/internal-sih-2025-certificate.png",
+        },
+        {
+          icon: "&#127942;",
+          name: "Solution Challenge",
+          issuer: "Google Developer Groups on Campus &mdash; Hack2Skill",
+          date: "2025 &bull; Solution Challenge",
+          description:
+            "Participated in Solution Challenge by proposing and building technology solutions for real-world impact.",
+          skills: "Innovation,Problem Solving,Project Building,Presentation",
+          src: "/Images/solution-challenge-certificate.png",
+        },
+      ];
+      await Certificate.insertMany(certsData);
+      console.log("Certificates seeded to MongoDB.");
+    }
+  } catch (err) {
+    console.error("Error seeding certificates:", err);
+  }
 }
 
 app.get("/api/health", (_req, res) => {
@@ -74,6 +157,16 @@ app.get("/api/messages", async (req, res) => {
     res.json({ ok: true, count: items.length, items });
   } catch (error) {
     res.status(500).json({ ok: false, error: "Failed to read messages" });
+  }
+});
+
+app.get("/api/certificates", async (req, res) => {
+  try {
+    await ensureDbConnection();
+    const certificates = await Certificate.find().lean();
+    res.json({ ok: true, count: certificates.length, items: certificates });
+  } catch (error) {
+    res.status(500).json({ ok: false, error: "Failed to read certificates" });
   }
 });
 
