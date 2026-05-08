@@ -53,9 +53,9 @@ async function ensureDbConnection() {
 
   dbConnectPromise = mongoose
     .connect(MONGO_URI)
-    .then(() => {
+    .then(async () => {
       console.log("MongoDB connected");
-      seedCertificates();
+      await seedCertificates();
     })
     .finally(() => {
       dbConnectPromise = null;
