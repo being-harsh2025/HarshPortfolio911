@@ -2887,16 +2887,67 @@
 
           // Default fallback certificates directly on frontend
           var defaultCerts = [
-            { icon: "&#127881;", name: "45 Days of Code 2024", issuer: "Amity Coding Club &mdash; Amity University", date: "2024 &bull; Amity University, Gwalior", description: "Successfully completed the 45 Days of Code 2024 challenge organized by the Amity Coding Club, demonstrating consistent dedication, discipline, and a passion for learning and innovation in programming over 45 continuous days.", skills: "Problem Solving,Consistent Coding,Programming Logic,Algorithms,Dedication,Innovation", src: "/Images/45-days-of-code-certificate.png" },
-            { icon: "&#127919;", name: "Google AI Study Jam", issuer: "Google Developer Groups on Campus &mdash; Amity University", date: "2025 &bull; Study Jam", description: "Completed Google AI Study Jam, focused on practical AI learning, hands-on exploration, and modern developer workflows.", skills: "Generative AI,Prompting,AI Tools,Hands-on Learning", src: "/Images/agentic.png" },
-            { icon: "&#128293;", name: "Build with AI Certificate of Participation", issuer: "Google Developer Groups on Campus &mdash; MITS DU", date: "February 10, 2025 &bull; MITS, Gwalior", description: "Certificate of participation awarded for taking part in the Build with AI event conducted by Google Developer Groups on Campus at MITS DU.", skills: "AI Fundamentals,Prompt Engineering,Developer Tools,Innovation,Community Participation", src: "/Images/build-with-ai-certificate.png" },
-            { icon: "&#127891;", name: "Internal SIH 2025", issuer: "Hack2Skill", date: "2025 &bull; Internal SIH", description: "Recognized participation in Internal SIH 2025 with active contribution in problem solving and project development.", skills: "Teamwork,Ideation,Problem Solving,Presentation", src: "/Images/internal-sih-2025-certificate.png" },
-            { icon: "&#127942;", name: "Solution Challenge", issuer: "Google Developer Groups on Campus &mdash; Hack2Skill", date: "2025 &bull; Solution Challenge", description: "Participated in Solution Challenge by proposing and building technology solutions for real-world impact.", skills: "Innovation,Problem Solving,Project Building,Presentation", src: "/Images/solution-challenge-certificate.png" }
+            {
+              icon: "&#127881;",
+              name: "45 Days of Code 2024",
+              issuer: "Amity Coding Club &mdash; Amity University",
+              date: "2024 &bull; Amity University, Gwalior",
+              description:
+                "Successfully completed the 45 Days of Code 2024 challenge organized by the Amity Coding Club, demonstrating consistent dedication, discipline, and a passion for learning and innovation in programming over 45 continuous days.",
+              skills:
+                "Problem Solving,Consistent Coding,Programming Logic,Algorithms,Dedication,Innovation",
+              src: "/Images/45-days-of-code-certificate.png",
+            },
+            {
+              icon: "&#127919;",
+              name: "Google AI Study Jam",
+              issuer:
+                "Google Developer Groups on Campus &mdash; Amity University",
+              date: "2025 &bull; Study Jam",
+              description:
+                "Completed Google AI Study Jam, focused on practical AI learning, hands-on exploration, and modern developer workflows.",
+              skills: "Generative AI,Prompting,AI Tools,Hands-on Learning",
+              src: "/Images/agentic.png",
+            },
+            {
+              icon: "&#128293;",
+              name: "Build with AI Certificate of Participation",
+              issuer: "Google Developer Groups on Campus &mdash; MITS DU",
+              date: "February 10, 2025 &bull; MITS, Gwalior",
+              description:
+                "Certificate of participation awarded for taking part in the Build with AI event conducted by Google Developer Groups on Campus at MITS DU.",
+              skills:
+                "AI Fundamentals,Prompt Engineering,Developer Tools,Innovation,Community Participation",
+              src: "/Images/build-with-ai-certificate.png",
+            },
+            {
+              icon: "&#127891;",
+              name: "Internal SIH 2025",
+              issuer: "Hack2Skill",
+              date: "2025 &bull; Internal SIH",
+              description:
+                "Recognized participation in Internal SIH 2025 with active contribution in problem solving and project development.",
+              skills: "Teamwork,Ideation,Problem Solving,Presentation",
+              src: "/Images/internal-sih-2025-certificate.png",
+            },
+            {
+              icon: "&#127942;",
+              name: "Solution Challenge",
+              issuer: "Google Developer Groups on Campus &mdash; Hack2Skill",
+              date: "2025 &bull; Solution Challenge",
+              description:
+                "Participated in Solution Challenge by proposing and building technology solutions for real-world impact.",
+              skills:
+                "Innovation,Problem Solving,Project Building,Presentation",
+              src: "/Images/solution-challenge-certificate.png",
+            },
           ];
 
           function renderCerts(items) {
             if (!certGrid) return;
-            certGrid.innerHTML = items.map(cert => `
+            certGrid.innerHTML = items
+              .map(
+                (cert) => `
               <div
                 class="ccard rv visible"
                 data-icon="${cert.icon}"
@@ -2904,7 +2955,7 @@
                 data-issuer="${cert.issuer}"
                 data-date="${cert.date}"
                 data-desc="${cert.description}"
-                data-skills="${cert.skills || ''}"
+                data-skills="${cert.skills || ""}"
                 data-src="${cert.src}"
               >
                 <div class="clog">${cert.icon}</div>
@@ -2913,7 +2964,9 @@
                 <div class="cdt">${cert.date}</div>
                 <div class="cbdg"><span class="cbdt"></span>Verified</div>
               </div>
-            `).join('');
+            `,
+              )
+              .join("");
             attachModalListeners();
           }
 
@@ -2926,7 +2979,9 @@
                 if (data.ok && data.items && data.items.length > 0) {
                   renderCerts(data.items);
                 } else {
-                  console.warn("No certs found in DB, falling back to local defaults.");
+                  console.warn(
+                    "No certs found in DB, falling back to local defaults.",
+                  );
                   renderCerts(defaultCerts);
                 }
               })
