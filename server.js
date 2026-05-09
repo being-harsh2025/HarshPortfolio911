@@ -51,7 +51,7 @@ const defaultCertsData = [
       "Successfully completed the 45 Days of Code 2024 challenge organized by the Amity Coding Club, demonstrating consistent dedication, discipline, and a passion for learning and innovation in programming over 45 continuous days.",
     skills:
       "Problem Solving,Consistent Coding,Programming Logic,Algorithms,Dedication,Innovation",
-    src: "/Images/45-days-of-code-certificate.png",
+    src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/45-days-of-code-certificate.png",
   },
   {
     icon: "&#127919;",
@@ -61,7 +61,7 @@ const defaultCertsData = [
     description:
       "Completed Google AI Study Jam, focused on practical AI learning, hands-on exploration, and modern developer workflows.",
     skills: "Generative AI,Prompting,AI Tools,Hands-on Learning",
-    src: "/Images/agentic.png",
+    src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/agentic.png",
   },
   {
     icon: "&#128293;",
@@ -72,7 +72,7 @@ const defaultCertsData = [
       "Certificate of participation awarded for taking part in the Build with AI event conducted by Google Developer Groups on Campus at MITS DU.",
     skills:
       "AI Fundamentals,Prompt Engineering,Developer Tools,Innovation,Community Participation",
-    src: "/Images/build-with-ai-certificate.png",
+    src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/build-with-ai-certificate.png",
   },
   {
     icon: "&#127891;",
@@ -82,7 +82,7 @@ const defaultCertsData = [
     description:
       "Recognized participation in Internal SIH 2025 with active contribution in problem solving and project development.",
     skills: "Teamwork,Ideation,Problem Solving,Presentation",
-    src: "/Images/internal-sih-2025-certificate.png",
+    src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/internal-sih-2025-certificate.png",
   },
   {
     icon: "&#127942;",
@@ -92,7 +92,7 @@ const defaultCertsData = [
     description:
       "Participated in Solution Challenge by proposing and building technology solutions for real-world impact.",
     skills: "Innovation,Problem Solving,Project Building,Presentation",
-    src: "/Images/solution-challenge-certificate.png",
+    src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/solution-challenge-certificate.png",
   },
 ];
 
@@ -226,3 +226,4 @@ if (require.main === module) {
 }
 
 module.exports = app;
+
