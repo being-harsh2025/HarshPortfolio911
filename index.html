@@ -2968,6 +2968,14 @@
               )
               .join("");
             attachModalListeners();
+            
+            // Preload images for instant modal opening
+            items.forEach((cert) => {
+              if (cert.src && cert.src.match(/\.(png|jpe?g|webp)$/i)) {
+                const img = new Image();
+                img.src = cert.src;
+              }
+            });
           }
 
           // Fetch Certificates from MongoDB API
