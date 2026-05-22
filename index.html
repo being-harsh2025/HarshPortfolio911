@@ -2488,24 +2488,29 @@
         </div>
         <div class="pcard rv">
           <div class="pnum">03</div>
-          <div class="ptit">TrackIt &mdash; Expense Intelligence</div>
+          <div class="ptit">Hachi Delights</div>
           <div class="pdesc">
-            Finance tracker with ML category prediction, recurring expense
-            detection, and visual analytics.
+            A delightful online platform offering seamless browsing and ordering
+            experiences with modern UI features.
           </div>
           <div class="ptch">
-            <span class="chip">Next.js</span><span class="chip">PostgreSQL</span
-            ><span class="chip">Python ML</span
-            ><span class="chip">Chart.js</span>
+            <span class="chip">HTML</span><span class="chip">CSS</span
+            ><span class="chip">JavaScript</span><span class="chip">React</span>
           </div>
           <div class="plnk">
             <a
-              href="https://github.com/being-harsh2025"
+              href="https://github.com/being-harsh2025/hachi-delights"
               target="_blank"
               rel="noopener"
               class="pla"
               >GitHub &rarr;</a
-            ><a href="#" class="pla">Live &rarr;</a>
+            ><a
+              href="https://hachi-delights.vercel.app/"
+              target="_blank"
+              rel="noopener"
+              class="pla"
+              >Live &rarr;</a
+            >
           </div>
         </div>
         <div
@@ -2597,91 +2602,8 @@
           <div class="sln"></div>
         </div>
       </div>
-      <div class="cgrid">
-        <div
-          class="ccard rv"
-          data-icon="&#127881;"
-          data-name="45 Days of Code 2024"
-          data-issuer="Amity Coding Club &mdash; Amity University"
-          data-date="2024 &bull; Amity University, Gwalior"
-          data-desc="Successfully completed the 45 Days of Code 2024 challenge organized by the Amity Coding Club, demonstrating consistent dedication, discipline, and a passion for learning and innovation in programming over 45 continuous days."
-          data-skills="Problem Solving,Consistent Coding,Programming Logic,Algorithms,Dedication,Innovation"
-          data-src="/Images/45-days-of-code-certificate.png"
-        >
-          <div class="clog">&#127881;</div>
-          <div class="cnm">45 Days of Code 2024</div>
-          <div class="cis">Amity Coding Club &mdash; Amity University</div>
-          <div class="cdt">2024 &bull; Amity University, Gwalior</div>
-          <div class="cbdg"><span class="cbdt"></span>Verified</div>
-        </div>
-        <div
-          class="ccard rv"
-          data-icon="&#127919;"
-          data-name="Google AI Study Jam"
-          data-issuer="Google Developer Groups on Campus &mdash; Amity University"
-          data-date="2025 &bull; Study Jam"
-          data-desc="Completed Google AI Study Jam, focused on practical AI learning, hands-on exploration, and modern developer workflows."
-          data-skills="Generative AI,Prompting,AI Tools,Hands-on Learning"
-          data-src="/Images/agentic.png"
-        >
-          <div class="clog">&#127919;</div>
-          <div class="cnm">Google AI Study Jam</div>
-          <div class="cis">GDG on Campus &mdash; Amity University</div>
-          <div class="cdt">2025 &bull; Study Jam</div>
-          <div class="cbdg"><span class="cbdt"></span>Verified</div>
-        </div>
-        <div
-          class="ccard rv"
-          data-icon="&#128293;"
-          data-name="Build with AI Certificate of Participation"
-          data-issuer="Google Developer Groups on Campus &mdash; MITS DU"
-          data-date="February 10, 2025 &bull; MITS, Gwalior"
-          data-desc="Certificate of participation awarded for taking part in the Build with AI event conducted by Google Developer Groups on Campus at MITS DU."
-          data-skills="AI Fundamentals,Prompt Engineering,Developer Tools,Innovation,Community Participation"
-          data-src="/Images/build-with-ai-certificate.png"
-        >
-          <div class="clog">&#128293;</div>
-          <div class="cnm">Build with AI Certificate of Participation</div>
-          <div class="cis">
-            Google Developer Groups on Campus &mdash; MITS DU
-          </div>
-          <div class="cdt">February 10, 2025</div>
-          <div class="cbdg"><span class="cbdt"></span>Verified</div>
-        </div>
-        <div
-          class="ccard rv"
-          data-icon="&#127891;"
-          data-name="Internal SIH 2025"
-          data-issuer="Hack2Skill"
-          data-date="2025 &bull; Internal SIH"
-          data-desc="Recognized participation in Internal SIH 2025 with active contribution in problem solving and project development."
-          data-skills="Teamwork,Ideation,Problem Solving,Presentation"
-          data-src="/Images/internal-sih-2025-certificate.png"
-        >
-          <div class="clog">&#127891;</div>
-          <div class="cnm">Internal SIH 2025</div>
-          <div class="cis">Hack2Skill</div>
-          <div class="cdt">2025 &bull; Internal SIH</div>
-          <div class="cbdg"><span class="cbdt"></span>Verified</div>
-        </div>
-        <div
-          class="ccard rv"
-          data-icon="&#127942;"
-          data-name="Solution Challenge"
-          data-issuer="Google Developer Groups on Campus &mdash; Hack2Skill"
-          data-date="2025 &bull; Solution Challenge"
-          data-desc="Participated in Solution Challenge by proposing and building technology solutions for real-world impact."
-          data-skills="Innovation,Problem Solving,Project Building,Presentation"
-          data-src="/Images/solution-challenge-certificate.png"
-        >
-          <div class="clog">&#127942;</div>
-          <div class="cnm">Solution Challenge</div>
-          <div class="cis">
-            Google Developer Groups on Campus &mdash; Hack2Skill
-          </div>
-          <div class="cdt">2025 &bull; Solution Challenge</div>
-          <div class="cbdg"><span class="cbdt"></span>Verified</div>
-        </div>
+      <div class="cgrid" id="cert-grid">
+        <!-- Certificates will be dynamically loaded here from MongoDB -->
       </div>
     </section>
     <section id="contact">
@@ -2955,11 +2877,131 @@
               if (mFrame) mFrame.innerHTML = "";
             }, 400);
           }
-          document.querySelectorAll(".ccard[data-name]").forEach(function (c) {
-            c.addEventListener("click", function () {
-              openModal(c);
+
+          function attachModalListeners() {
+            document
+              .querySelectorAll(".ccard[data-name]")
+              .forEach(function (c) {
+                c.addEventListener("click", function () {
+                  openModal(c);
+                });
+              });
+          }
+
+          // Default fallback certificates directly on frontend
+          var defaultCerts = [
+            {
+              icon: "&#127881;",
+              name: "45 Days of Code 2024",
+              issuer: "Amity Coding Club &mdash; Amity University",
+              date: "2024 &bull; Amity University, Gwalior",
+              description:
+                "Successfully completed the 45 Days of Code 2024 challenge organized by the Amity Coding Club, demonstrating consistent dedication, discipline, and a passion for learning and innovation in programming over 45 continuous days.",
+              skills:
+                "Problem Solving,Consistent Coding,Programming Logic,Algorithms,Dedication,Innovation",
+              src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/45-days-of-code-certificate.png",
+            },
+            {
+              icon: "&#127919;",
+              name: "Google AI Study Jam",
+              issuer:
+                "Google Developer Groups on Campus &mdash; Amity University",
+              date: "2025 &bull; Study Jam",
+              description:
+                "Completed Google AI Study Jam, focused on practical AI learning, hands-on exploration, and modern developer workflows.",
+              skills: "Generative AI,Prompting,AI Tools,Hands-on Learning",
+              src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/agentic.png",
+            },
+            {
+              icon: "&#128293;",
+              name: "Build with AI Certificate of Participation",
+              issuer: "Google Developer Groups on Campus &mdash; MITS DU",
+              date: "February 10, 2025 &bull; MITS, Gwalior",
+              description:
+                "Certificate of participation awarded for taking part in the Build with AI event conducted by Google Developer Groups on Campus at MITS DU.",
+              skills:
+                "AI Fundamentals,Prompt Engineering,Developer Tools,Innovation,Community Participation",
+              src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/build-with-ai-certificate.png",
+            },
+            {
+              icon: "&#127891;",
+              name: "Internal SIH 2025",
+              issuer: "Hack2Skill",
+              date: "2025 &bull; Internal SIH",
+              description:
+                "Recognized participation in Internal SIH 2025 with active contribution in problem solving and project development.",
+              skills: "Teamwork,Ideation,Problem Solving,Presentation",
+              src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/internal-sih-2025-certificate.png",
+            },
+            {
+              icon: "&#127942;",
+              name: "Solution Challenge",
+              issuer: "Google Developer Groups on Campus &mdash; Hack2Skill",
+              date: "2025 &bull; Solution Challenge",
+              description:
+                "Participated in Solution Challenge by proposing and building technology solutions for real-world impact.",
+              skills:
+                "Innovation,Problem Solving,Project Building,Presentation",
+              src: "https://raw.githubusercontent.com/being-harsh2025/HarshPortfolio911/main/Images/solution-challenge-certificate.png",
+            },
+          ];
+
+          function renderCerts(items) {
+            if (!certGrid) return;
+            certGrid.innerHTML = items
+              .map(
+                (cert) => `
+              <div
+                class="ccard rv visible"
+                data-icon="${cert.icon}"
+                data-name="${cert.name}"
+                data-issuer="${cert.issuer}"
+                data-date="${cert.date}"
+                data-desc="${cert.description}"
+                data-skills="${cert.skills || ""}"
+                data-src="${cert.src}"
+              >
+                <div class="clog">${cert.icon}</div>
+                <div class="cnm">${cert.name}</div>
+                <div class="cis">${cert.issuer}</div>
+                <div class="cdt">${cert.date}</div>
+                <div class="cbdg"><span class="cbdt"></span>Verified</div>
+              </div>
+            `,
+              )
+              .join("");
+            attachModalListeners();
+            
+            // Preload images for instant modal opening
+            items.forEach((cert) => {
+              if (cert.src && cert.src.match(/\.(png|jpe?g|webp)$/i)) {
+                const img = new Image();
+                img.src = cert.src;
+              }
             });
-          });
+          }
+
+          // Fetch Certificates from MongoDB API
+          var certGrid = document.getElementById("cert-grid");
+          if (certGrid) {
+            fetch("/api/certificates")
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.ok && data.items && data.items.length > 0) {
+                  renderCerts(data.items);
+                } else {
+                  console.warn(
+                    "No certs found in DB, falling back to local defaults.",
+                  );
+                  renderCerts(defaultCerts);
+                }
+              })
+              .catch((err) => {
+                console.error("Failed to load certificates:", err);
+                renderCerts(defaultCerts);
+              });
+          }
+
           closeBtn.addEventListener("click", closeModal);
           overlay.addEventListener("click", function (e) {
             if (e.target === overlay) closeModal();
@@ -2972,3 +3014,4 @@
     </script>
   </body>
 </html>
+
